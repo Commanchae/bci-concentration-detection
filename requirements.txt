@@ -1,0 +1,7 @@
+brainflow==5.13.0
+pygame==2.6.0
+pylsl==1.16.2
+pyserial==3.5
+scikit-learn==1.5.1
+scipy==1.14.0
+torch==2.4.0
