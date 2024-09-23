@@ -183,14 +183,17 @@ class DataProcessor():
         '''
         Extracts band powers from loaded samples.
 
-        Inputs: None, but utilizes self.samples and self.sampling_frequency.
-            - self.samples (np.ndarray): The input sample(s). It can be a 3D array for batched samples or a 2D array for an individual sample.
-                Shape: [B, C, T] or [C, T]. B -> Batch size, C -> EEG channels, T -> Timesteps.
-            - self.sampling_frequency (int): The sampling frequency of the samples. Default is 256 for the Muse 2. 
+        Inputs: 
+            collapse → boolean value that corresponds to whether the result should be flattened to a [B, C*5] np.ndarray.
+
+            Internally utilizes self.samples and self.sampling_frequency.
+                - self.samples (np.ndarray): The input sample(s). It can be a 3D array for batched samples or a 2D array for an individual sample.
+                    Shape: [B, C, T] or [C, T]. B -> Batch size, C -> EEG channels, T -> Timesteps.
+                - self.sampling_frequency (int): The sampling frequency of the samples. Default is 256 for the Muse 2. 
         
-        Output: None, but modifies self.extracted_bp_samples.
-            -self.extracted_bp_samples <- np.ndarray: An array containing the extracted band powers for each sample and channel.
-                Shape: [B, C, 5]. 5 -> extracted band_power for each brainwave type (delta, theta, alpha, beta, gamma).   
+        Output: extracted_features → np.ndarray: An array containing the extracted band powers for each sample and channel.
+                Shape: [B, C, 5]. 5 -> extracted band_power for each brainwave type (delta, theta, alpha, beta, gamma). 
+                If collapse is True, the shape will be [B, C*5]  
         '''
         # Get the dimensions of the samples array
         B, C, T = self.samples.shape  
